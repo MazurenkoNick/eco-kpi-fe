@@ -22,7 +22,19 @@ function EcoTable({ pollutions }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Map over your 'pollutions' data and create table rows here */}
+                {pollutions.map((pollution) => (
+                    <tr key={pollution.id}>
+                        <td>{pollution.id}</td>
+                        <td>{pollution.objectName}</td>
+                        <td>{pollution.pollutantName}</td>
+                        <td>{pollution.valuePollution}</td>
+                        <td>{pollution.pollutantMfr}</td>
+                        <td>{pollution.pollutantTlv}</td>
+                        <td> {/* You can add the corresponding data here */}</td>
+                        <td>{pollution.year}</td>
+                        <td> {/* crud pollution */}</td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
         </div>
