@@ -1,8 +1,10 @@
 import React from 'react';
 import './Table.css'
 import Table from "./Table";
+import PollutionUpdateForm from "../pollution/PollutionUpdateForm";
+import PollutionDeleteButton from "../pollution/PollutionDeleteButton";
 
-function EcoTable({ pollutions }) {
+function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     return (
         <Table>
             <thead className="">
@@ -14,7 +16,8 @@ function EcoTable({ pollutions }) {
                     <th colSpan="2">Нормативи ГДВ забруднюючих речовин</th>
                     <th rowSpan="2">Кількість перевищення викидів</th>
                     <th rowSpan="2">Період</th>
-                    <th rowSpan="2">Більше</th>
+                    <th rowSpan="2">Оновлення даних</th>
+                    <th rowSpan="2">Видалення</th>
                 </tr>
                 <tr>
                     <th>Величина масової витрати г/год.</th>
@@ -32,7 +35,8 @@ function EcoTable({ pollutions }) {
                     <td>{pollution.pollutantTlv}</td>
                     <td> {/* You can add the corresponding data here */}</td>
                     <td>{pollution.year}</td>
-                    <td> {/* crud pollution */}</td>
+                    <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
+                    <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>
                 </tr>
             ))}
             </tbody>

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function CreatePollutionForm({ onPollutionCreated }) {
+function PollutionUpdateForm({ pollution, onUpdate }) {
     const [formData, setFormData] = useState({
-        objectName: "",
-        pollutantName: "",
-        year: "",
-        valuePollution: "",
+        objectName: pollution.objectName,
+        pollutantName: pollution.pollutantName,
+        year: pollution.year,
+        valuePollution: pollution.valuePollution,
     });
 
     const [error, setError] = useState("");
@@ -39,42 +39,32 @@ function CreatePollutionForm({ onPollutionCreated }) {
         }
 
         try {
-            const response = await axios.post(
-                "http://localhost:8080/api/v1/pollutions",
+            const response = await axios.put(
+                `http://localhost:8080/api/v1/pollutions/${pollution.id}`,
                 formData
             );
-            if (response.status === 201) {
-                // Clear form data on successful submission
-                setFormData({
-                    objectName: "",
-                    pollutantName: "",
-                    year: "",
-                    valuePollution: "",
-                });
+            if (response.status === 200) {
                 setError(""); // Clear any previous errors
-                onPollutionCreated(); // You can use this callback to refresh your table or perform other actions
+                onUpdate();
                 setIsFormVisible(false); // Hide the form after submission
             }
         } catch (error) {
-            console.error("Error creating pollution data:", error);
+            console.error("Error updating pollution data:", error);
             setError(error.response.data);
         }
     };
 
     return (
         <div className="text-center m-3">
-            <button
-                className="btn btn-primary"
-                onClick={toggleFormVisibility}
-            >
-                {isFormVisible ? "Hide Form" : "Add a new pollution"}
+            <button className="btn btn-primary" onClick={toggleFormVisibility}>
+                {isFormVisible ? "Hide Update Form" : "Update Pollution Data"}
             </button>
             {isFormVisible && (
                 <div className="d-flex justify-content-center">
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label>Object Name:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="text"
                                 name="objectName"
@@ -84,7 +74,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                         </div>
                         <div>
                             <label>Pollutant Name:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="text"
                                 name="pollutantName"
@@ -94,7 +84,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                         </div>
                         <div>
                             <label>Year:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="number"
                                 name="year"
@@ -104,7 +94,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                         </div>
                         <div>
                             <label>Value Pollution:</label>
-                            <br/>
+                            <br />
                             <input
                                 type="number"
                                 name="valuePollution"
@@ -113,7 +103,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                             />
                         </div>
                         <button type="submit" className="btn mt-2 btn-success">
-                            Submit
+                            Update
                         </button>
                         {error && <div className="text-danger">{error}</div>}
                     </form>
@@ -123,4 +113,4 @@ function CreatePollutionForm({ onPollutionCreated }) {
     );
 }
 
-export default CreatePollutionForm;
+export default PollutionUpdateForm;

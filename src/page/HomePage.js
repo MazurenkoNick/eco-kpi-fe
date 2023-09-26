@@ -16,14 +16,22 @@ function HomePage() {
         setPollutions(response.data);
     }
 
+    const onPollutionUpdate = async () => {
+        await fetchPollutions();
+    }
+
     const onPollutionCreated = async () => {
+        await fetchPollutions();
+    }
+
+    const onPollutionDelete = async () => {
         await fetchPollutions();
     }
 
     return (
         <div>
             <CreatePollutionForm onPollutionCreated={onPollutionCreated}/>
-            <EcoTable pollutions={pollutions}/>
+            <EcoTable pollutions={pollutions} onPollutionUpdate={onPollutionUpdate} onPollutionDelete={onPollutionDelete}/>
         </div>
     );
 }
