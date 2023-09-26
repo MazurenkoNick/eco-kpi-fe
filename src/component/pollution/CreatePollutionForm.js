@@ -62,12 +62,12 @@ function CreatePollutionForm({ onPollutionCreated }) {
     };
 
     return (
-        <div className="text-center">
+        <div className="text-center m-3">
             <button
                 className="btn btn-primary"
                 onClick={toggleFormVisibility}
             >
-                {isFormVisible ? "Hide Form" : "Show Form"}
+                {isFormVisible ? "Hide Form" : "Add a new pollution"}
             </button>
             {isFormVisible && (
                 <div className="d-flex justify-content-center">

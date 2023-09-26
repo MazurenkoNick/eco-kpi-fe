@@ -13,7 +13,6 @@ function HomePage() {
 
     const fetchPollutions = async () => {
         const response = await axios.get("http://localhost:8080/api/v1/pollutions");
-        console.log(response);
         setPollutions(response.data);
     }
 
@@ -23,8 +22,8 @@ function HomePage() {
 
     return (
         <div>
-            <EcoTable pollutions={pollutions}/>
             <CreatePollutionForm onPollutionCreated={onPollutionCreated}/>
+            <EcoTable pollutions={pollutions}/>
         </div>
     );
 }
