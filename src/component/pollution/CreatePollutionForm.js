@@ -62,7 +62,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
     };
 
     return (
-        <div className="text-center m-3">
+        <div className="text-center mt-3">
             <button
                 className="btn btn-primary"
                 onClick={toggleFormVisibility}

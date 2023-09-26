@@ -6,7 +6,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
         objectName: pollution.objectName,
         pollutantName: pollution.pollutantName,
         year: pollution.year,
-        valuePollution: pollution.valuePollution,
+        valuePollution: pollution.valuePollution.toFixed(2),
     });
 
     const [error, setError] = useState("");

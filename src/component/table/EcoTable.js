@@ -12,7 +12,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <th rowSpan="2">ID</th>
                     <th rowSpan="2">Назва підприємства</th>
                     <th rowSpan="2">Назва забруднюючої речовини</th>
-                    <th rowSpan="2">Усього викидів підприємства т/рік</th>
+                    <th rowSpan="2">Усього викидів підприємства г/год.</th>
                     <th colSpan="2">Нормативи ГДВ забруднюючих речовин</th>
                     <th rowSpan="2">Кількість перевищення викидів</th>
                     <th rowSpan="2">Період</th>
@@ -30,7 +30,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <td>{pollution.id}</td>
                     <td>{pollution.objectName}</td>
                     <td>{pollution.pollutantName}</td>
-                    <td>{pollution.valuePollution}</td>
+                    <td>{pollution.valuePollution.toFixed(2)}</td>
                     <td>{pollution.pollutantMfr}</td>
                     <td>{pollution.pollutantTlv}</td>
                     <td> {/* You can add the corresponding data here */}</td>
