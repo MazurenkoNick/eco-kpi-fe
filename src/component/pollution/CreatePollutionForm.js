@@ -38,6 +38,13 @@ function CreatePollutionForm({ onPollutionCreated }) {
             return;
         }
 
+        if (
+            formData.year < 0 || formData.valuePollution < 0
+        ) {
+            setError("number can't be less than 0.")
+            return;
+        }
+
         try {
             const response = await axios.post(
                 "http://localhost:8080/api/v1/pollutions",
