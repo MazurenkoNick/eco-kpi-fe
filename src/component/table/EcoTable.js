@@ -32,7 +32,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <td>{pollution.pollutantName}</td>
                     <td>{pollution.valuePollution.toFixed(2)}</td>
                     <td>{pollution.pollutantMfr}</td>
-                    <td>{pollution.pollutantTlv}</td>
+                    <td>{pollution.pollutantElv}</td>
                     <td> {/* You can add the corresponding data here */}</td>
                     <td>{pollution.year}</td>
                     <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>

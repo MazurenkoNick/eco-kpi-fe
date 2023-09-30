@@ -28,7 +28,7 @@ function FileUpload({ onUpload }) {
             } catch (error) {
                 console.error("Error uploading file:", error);
                 // Handle the error here (e.g., display an error message to the user).
-                setErrorMessage("Error uploading pollution data. Check your data and please try again.");
+                setErrorMessage(error.response.data);
             }
         }
     };

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./page/HomePage";
+import Pollutants from "./component/pollutants/Pollutants";
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
                 <Route>
                     <Route path="/" element={
                         <HomePage/>
+                    }/>
+                    <Route path="/pollutants" element={
+                        <Pollutants/>
                     }/>
                 </Route>
             </Routes>
