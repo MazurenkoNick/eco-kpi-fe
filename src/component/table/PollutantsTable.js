@@ -1,8 +1,8 @@
 import React from 'react';
 import './Table.css'
 import Table from "./Table";
-import PollutantUpdateForm from "../pollutants/PollutantUpdateForm";
-import PollutantDeleteButton from "../pollutants/PollutantDeleteButton";
+import PollutantUpdateForm from "../pollutant/PollutantUpdateForm";
+import PollutantDeleteButton from "../pollutant/PollutantDeleteButton";
 
 function PollutantsTable({ pollutants, onPollutantUpdate, onPollutantDelete }) {
     return (
