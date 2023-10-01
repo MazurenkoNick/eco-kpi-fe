@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import PollutantsTable from "../table/PollutantsTable";
-import CreatePollutantForm from "./CreatePollutantForm";
+import CreatePollutantForm from "../component/pollutant/CreatePollutantForm";
+import PollutantsTable from "../component/table/PollutantsTable";
 
-function Pollutants() {
+function PollutantsPage() {
     const [pollutants, setPollutants] = useState([]); // Change state variable name
     const [successMessage, setSuccessMessage] = useState(""); // State variable for success message
 
@@ -66,4 +66,4 @@ function Pollutants() {
     );
 }
 
-export default Pollutants;
+export default PollutantsPage;

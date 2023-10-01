@@ -1,33 +1,27 @@
-// Bootstrap CSS
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./page/HomePage";
-import Pollutants from "./component/pollutant/Pollutants";
-import Objects from "./component/object/Objects";
-
+import PollutantsPage from "./page/PollutantsPage";
+import ObjectsPage from "./page/ObjectsPage";
+import Navbar from "./component/Navbar";
 
 function App() {
-  return (
-    <div>
+    return (
         <Router>
-            <Routes>
-                <Route>
-                    <Route path="/" element={
-                        <HomePage/>
-                    }/>
-                    <Route path="/pollutants" element={
-                        <Pollutants/>
-                    }/>
-                    <Route path="/objects" element={
-                        <Objects/>
-                    }/>
-                </Route>
-            </Routes>
+            <div>
+                <Navbar/>
+                <div className="container mt-4">
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/pollutants" element={<PollutantsPage />} />
+                        <Route path="/objects" element={<ObjectsPage />} />
+                    </Routes>
+                </div>
+            </div>
         </Router>
-    </div>
-  );
+    );
 }
 
 export default App;

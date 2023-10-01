@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ObjectsTable from "../table/ObjectsTable";
-import CreateObjectForm from "./CreateObjectForm";
+import CreateObjectForm from "../component/object/CreateObjectForm";
+import ObjectsTable from "../component/table/ObjectsTable";
 
-function Objects() {
+function ObjectsPage() {
     const [objects, setObjects] = useState([]); // Change state variable name
     const [successMessage, setSuccessMessage] = useState(""); // State variable for success message
 
@@ -66,4 +66,4 @@ function Objects() {
     );
 }
 
-export default Objects;
+export default ObjectsPage;
