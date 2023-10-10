@@ -7,6 +7,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
         pollutantName: pollution.pollutantName,
         year: pollution.year,
         valuePollution: pollution.valuePollution.toFixed(2),
+        pollutionConcentration: pollution.pollutionConcentration.toFixed(2)
     });
 
     const [error, setError] = useState("");
@@ -32,14 +33,15 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
             !formData.objectName ||
             !formData.pollutantName ||
             !formData.year ||
-            !formData.valuePollution
+            !formData.valuePollution ||
+            !formData.pollutionConcentration
         ) {
             setError("All fields are required.");
             return;
         }
 
         if (
-            formData.year < 0 || formData.valuePollution < 0
+            formData.year < 0 || formData.valuePollution < 0 || formData.pollutionConcentration
         ) {
             setError("number can't be less than 0.")
             return;
@@ -106,6 +108,16 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
                                 type="number"
                                 name="valuePollution"
                                 value={formData.valuePollution}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Pollution Concentration:</label>
+                            <br/>
+                            <input
+                                type="number"
+                                name="pollutionConcentration"
+                                value={formData.pollutionConcentration}
                                 onChange={handleChange}
                             />
                         </div>

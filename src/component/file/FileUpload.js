@@ -56,6 +56,12 @@ function FileUpload({ onUpload }) {
                         >
                             Upload .xlsx File
                         </button>
+                        <a
+                            className="btn btn-primary m-lg-1"
+                            href={"http://localhost:8080/api/v1/file/export"}
+                        >
+                            Download .xlsx File
+                        </a>
                     </div>
                     {errorMessage && (
                         <div className="alert alert-danger" role="alert">
