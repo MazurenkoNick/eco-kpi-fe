@@ -5,6 +5,7 @@ function CreatePollutantForm({ onPollutantCreated }) {
     const [formData, setFormData] = useState({
         name: "",
         elv: "",
+        tlv:"",
         mfr: "",
     });
 
@@ -27,12 +28,12 @@ function CreatePollutantForm({ onPollutantCreated }) {
         e.preventDefault();
 
         // Basic not-null checks
-        if (!formData.name || !formData.elv || !formData.mfr) {
+        if (!formData.name || !formData.elv || !formData.mfr || !formData.tlv) {
             setError("All fields are required.");
             return;
         }
 
-        if (formData.elv < 0 || formData.mfr < 0) {
+        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0) {
             setError("Fields cannot be less than 0.");
             return;
         }
@@ -48,6 +49,7 @@ function CreatePollutantForm({ onPollutantCreated }) {
                     name: "",
                     elv: "",
                     mfr: "",
+                    tlv: ""
                 });
                 setError(""); // Clear any previous errors
                 onPollutantCreated(); // You can use this callback to refresh your table or perform other actions
@@ -74,6 +76,16 @@ function CreatePollutantForm({ onPollutantCreated }) {
                                 type="text"
                                 name="name"
                                 value={formData.name}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>TLV:</label>
+                            <br />
+                            <input
+                                type="number"
+                                name="tlv"
+                                value={formData.tlv}
                                 onChange={handleChange}
                             />
                         </div>

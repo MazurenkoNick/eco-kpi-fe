@@ -13,8 +13,9 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <th rowSpan="2">Назва підприємства</th>
                     <th rowSpan="2">Назва забруднюючої речовини</th>
                     <th rowSpan="2">Усього викидів підприємства г/год.</th>
-                    <th colSpan="2">Нормативи ГДВ забруднюючих речовин</th>
-                    <th rowSpan="2">Кількість перевищення викидів</th>
+                    <th colSpan="3">Нормативи забруднюючих речовин</th>
+                    <th rowSpan="2">Концентрація викідів</th>
+                    <th rowSpan="2">ADD/LADD</th>
                     <th rowSpan="2">Період</th>
                     <th rowSpan="2">Оновлення даних</th>
                     <th rowSpan="2">Видалення</th>
@@ -22,6 +23,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                 <tr>
                     <th>Величина масової витрати г/год.</th>
                     <th>Гранично допустимі викиди мг/м3</th>
+                    <th>Гранично допустимі концентрація мг/м3</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,10 +32,12 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <td>{pollution.id}</td>
                     <td>{pollution.objectName}</td>
                     <td>{pollution.pollutantName}</td>
-                    <td>{pollution.valuePollution.toFixed(2)}</td>
+                    <td>{pollution.valuePollution.toPrecision(2)}</td>
                     <td>{pollution.pollutantMfr}</td>
                     <td>{pollution.pollutantElv}</td>
-                    <td> {/* You can add the corresponding data here */}</td>
+                    <td>{pollution.pollutantTlv}</td>
+                    <td>{pollution.pollutionConcentration}</td>
+                    <td>{pollution.addLadd.toPrecision(2)}</td>
                     <td>{pollution.year}</td>
                     <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
                     <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>

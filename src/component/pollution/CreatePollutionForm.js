@@ -7,6 +7,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
         pollutantName: "",
         year: "",
         valuePollution: "",
+        pollutionConcentration: ""
     });
 
     const [error, setError] = useState("");
@@ -32,14 +33,15 @@ function CreatePollutionForm({ onPollutionCreated }) {
             !formData.objectName ||
             !formData.pollutantName ||
             !formData.year ||
-            !formData.valuePollution
+            !formData.valuePollution ||
+            !formData.pollutionConcentration
         ) {
             setError("All fields are required.");
             return;
         }
 
         if (
-            formData.year < 0 || formData.valuePollution < 0
+            formData.year < 0 || formData.valuePollution < 0 || formData.pollutionConcentration < 0
         ) {
             setError("number can't be less than 0.")
             return;
@@ -57,6 +59,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                     pollutantName: "",
                     year: "",
                     valuePollution: "",
+                    pollutionConcentration: ""
                 });
                 setError(""); // Clear any previous errors
                 onPollutionCreated(); // You can use this callback to refresh your table or perform other actions
@@ -116,6 +119,16 @@ function CreatePollutionForm({ onPollutionCreated }) {
                                 type="number"
                                 name="valuePollution"
                                 value={formData.valuePollution}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Pollution Concentration:</label>
+                            <br/>
+                            <input
+                                type="number"
+                                name="pollutionConcentration"
+                                value={formData.pollutionConcentration}
                                 onChange={handleChange}
                             />
                         </div>
