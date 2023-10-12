@@ -14,6 +14,8 @@ function PollutantsTable({ pollutants, onPollutantUpdate, onPollutantDelete }) {
                 <th rowSpan="2">Величина масової витрати г/год.</th>
                 <th rowSpan="2">Гранично допустима концинтрація мг/м3</th>
                 <th rowSpan="2">Гранично допустимі викиди мг/м3</th>
+                <th rowSpan="2">Фактор канцерогенного потенціалу (мг/(кг * доба)</th>
+                <th rowSpan="2">референтна концентрація, мг/м3</th>
                 <th rowSpan="2">Оновлення даних</th>
                 <th rowSpan="2">Видалення</th>
             </tr>
@@ -26,6 +28,8 @@ function PollutantsTable({ pollutants, onPollutantUpdate, onPollutantDelete }) {
                     <td>{pollutant.mfr}</td>
                     <td>{pollutant.tlv}</td>
                     <td>{pollutant.elv}</td>
+                    <td>{pollutant.sf}</td>
+                    <td>{pollutant.rfc}</td>
                     <td><PollutantUpdateForm pollutant={pollutant} onUpdate={onPollutantUpdate}/></td>
                     <td><PollutantDeleteButton pollutant={pollutant} onDelete={onPollutantDelete}/></td>
                 </tr>

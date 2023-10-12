@@ -32,12 +32,12 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <td>{pollution.id}</td>
                     <td>{pollution.objectName}</td>
                     <td>{pollution.pollutantName}</td>
-                    <td>{pollution.valuePollution.toPrecision(2)}</td>
+                    <td>{pollution.valuePollution ? pollution.valuePollution.toPrecision(2) : 'N/A'}</td>
                     <td>{pollution.pollutantMfr}</td>
                     <td>{pollution.pollutantElv}</td>
                     <td>{pollution.pollutantTlv}</td>
                     <td>{pollution.pollutionConcentration}</td>
-                    <td>{pollution.addLadd.toPrecision(2)}</td>
+                    <td>{pollution.addLadd ? pollution.addLadd.toPrecision(2) : 'N/A'}</td>
                     <td>{pollution.year}</td>
                     <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
                     <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>

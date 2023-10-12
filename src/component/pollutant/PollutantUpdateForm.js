@@ -6,7 +6,9 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
         name: pollutant.name,
         elv: pollutant.elv,
         mfr: pollutant.mfr,
-        tlv: pollutant.tlv
+        tlv: pollutant.tlv,
+        sf: pollutant.sf,
+        rfc: pollutant.rfc
     });
 
     const [error, setError] = useState("");
@@ -28,12 +30,13 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
         e.preventDefault();
 
         // Basic not-null checks
-        if (!formData.name || formData.elv === null || formData.mfr === null || formData.tlv == null) {
+        if (!formData.name || formData.elv === null || formData.mfr === null
+            || formData.tlv == null || formData.sf == null || formData.rfc == null) {
             setError("All fields are required.");
             return;
         }
 
-        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0) {
+        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0 || formData.sf < 0 || formData.sf < 0) {
             setError("Fields cannot be less than 0.");
             return;
         }
@@ -99,6 +102,26 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
                                 type="number"
                                 name="mfr"
                                 value={formData.mfr}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>RFC:</label>
+                            <br />
+                            <input
+                                type="number"
+                                name="rfc"
+                                value={formData.rfc}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>SF:</label>
+                            <br />
+                            <input
+                                type="number"
+                                name="sf"
+                                value={formData.sf}
                                 onChange={handleChange}
                             />
                         </div>
