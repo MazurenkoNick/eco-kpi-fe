@@ -3,11 +3,36 @@ import './Table.css'
 import Table from "./Table";
 import PollutionUpdateForm from "../pollution/PollutionUpdateForm";
 import PollutionDeleteButton from "../pollution/PollutionDeleteButton";
-import './EcoTable.css';
 import 'react-tooltip/dist/react-tooltip.css';
+import FilterForm from './FilterForm';
 import {Tooltip} from "react-tooltip";
 
 function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
+
+    const [filters, setFilters] = useState({
+        idFilter: '',
+        companyNameFilter: '',
+        pollutantNameFilter: '',
+        periodFilter: '',
+    });
+
+    const [isFilterFormVisible, setIsFilterFormVisible] = useState(false);
+
+    const handleFilterChange = (name, value) => {
+        setFilters({ ...filters, [name]: value });
+    };
+
+    const toggleFilterForm = () => {
+        setIsFilterFormVisible(!isFilterFormVisible);
+    };
+
+    const filteredPollutions = pollutions.filter((pollution) => {
+        const idMatches = pollution.id.toString().includes(filters.idFilter);
+        const companyNameMatches = pollution.objectName.includes(filters.companyNameFilter);
+        const pollutantNameMatches = pollution.pollutantName.includes(filters.pollutantNameFilter);
+        const periodMatches = pollution.year.toString().includes(filters.periodFilter);
+        return idMatches && companyNameMatches && pollutantNameMatches && periodMatches;
+    });
 
     const [hqMessage, setHqMessage] = useState(null);
     const [crMessage, setCrMessage] = useState(null);
@@ -43,11 +68,19 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <Tooltip
                 id="my-tooltip"
                 style={{ width: "400px" }
             }/>
+            <button
+                className="btn btn-primary mb-3"
+                onClick={toggleFilterForm}
+            >
+                {isFilterFormVisible ? 'Hide Filters' : 'Show Filters'}
+            </button>
+            {isFilterFormVisible && <FilterForm filters={filters} onFilterChange={handleFilterChange} />}
+
             <Table>
                 <thead className="">
                 <tr>
@@ -71,7 +104,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                 </tr>
                 </thead>
                 <tbody>
-                {pollutions.map((pollution) => (
+                {filteredPollutions.map((pollution) => (
                     <tr key={pollution.id}>
                         <td>{pollution.id}</td>
                         <td>{pollution.objectName}</td>
