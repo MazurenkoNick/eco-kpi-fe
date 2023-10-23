@@ -50,8 +50,10 @@ function CreatePollutantForm({ onPollutantCreated }) {
                 setFormData({
                     name: "",
                     elv: "",
+                    tlv:"",
                     mfr: "",
-                    tlv: ""
+                    sf: "",
+                    rfc: ""
                 });
                 setError(""); // Clear any previous errors
                 onPollutantCreated(); // You can use this callback to refresh your table or perform other actions
