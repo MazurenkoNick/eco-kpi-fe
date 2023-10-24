@@ -12,13 +12,16 @@ function App() {
         <Router>
             <div>
                 <Navbar/>
-                <div className="container mt-1 mx-5">
+                <div className="container mt-4">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/pollutants" element={<PollutantsPage />} />
                         <Route path="/objects" element={<ObjectsPage />} />
                     </Routes>
                 </div>
+                <footer className="bg-dark text-light text-center p-3">
+                    &copy; Copyright 2023 Nikita Malov and Nikita Mazurenko
+                </footer>
             </div>
         </Router>
     );
