@@ -38,7 +38,6 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     const [crMessage, setCrMessage] = useState(null);
 
     const hqMouseOver = (hq) => {
-        console.log("hq")
         if (hq < 1) {
             setHqMessage("Ризик виникнення шкідливих ефектів розглядають як зневажливо малий");
         } else if (hq === 1) {
@@ -50,7 +49,6 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     }
 
     const crMouseOver = (cr) => {
-        console.log("cr")
         if (cr > 1e-3) {
             setCrMessage("Високий (De Manifestis) - не прийнятний для виробничих умов і населення. " +
                 "Необхідне здійснення заходів з усунення або зниження ризику");
