@@ -12,7 +12,7 @@ function App() {
         <Router>
             <div>
                 <Navbar/>
-                <div className="container mt-4">
+                <div className="container mt-1 mx-5">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/pollutants" element={<PollutantsPage />} />

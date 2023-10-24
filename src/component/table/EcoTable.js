@@ -7,7 +7,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import FilterForm from './FilterForm';
 import {Tooltip} from "react-tooltip";
 
-function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
+function EcoTable({pollutions, onPollutionUpdate, onPollutionDelete}) {
 
     const [filters, setFilters] = useState({
         idFilter: '',
@@ -19,7 +19,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     const [isFilterFormVisible, setIsFilterFormVisible] = useState(false);
 
     const handleFilterChange = (name, value) => {
-        setFilters({ ...filters, [name]: value });
+        setFilters({...filters, [name]: value});
     };
 
     const toggleFilterForm = () => {
@@ -71,71 +71,70 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
         <div className="text-center">
             <Tooltip
                 id="my-tooltip"
-                style={{ width: "400px" }
-            }/>
+                style={{width: "400px"}
+                }/>
             <button
                 className="btn btn-primary mb-3"
                 onClick={toggleFilterForm}
             >
                 {isFilterFormVisible ? 'Hide Filters' : 'Show Filters'}
             </button>
-            {isFilterFormVisible && <FilterForm filters={filters} onFilterChange={handleFilterChange} />}
-
-            <Table>
-                <thead className="">
-                <tr>
-                    <th rowSpan="2">ID</th>
-                    <th rowSpan="2">Назва підприємства</th>
-                    <th rowSpan="2">Назва забруднюючої речовини</th>
-                    <th rowSpan="2">Усього викидів підприємства г/год.</th>
-                    <th colSpan="3">Нормативи забруднюючих речовин</th>
-                    <th rowSpan="2">Концентрація викидів мг/м3</th>
-                    <th rowSpan="2">Неканцерогенний коефіцієнт небезпеки</th>
-                    <th rowSpan="2">Індивідуальний канцерогенний ризик</th>
-                    <th rowSpan="2">Розмір відшкодування збитків</th>
-                    <th rowSpan="2">Період</th>
-                    <th rowSpan="2">Оновлення даних</th>
-                    <th rowSpan="2">Видалення</th>
-                </tr>
-                <tr>
-                    <th>Величина масової витрати г/год.</th>
-                    <th>Гранично допустимі викиди мг/м3</th>
-                    <th>Гранично допустимі концентрація мг/м3</th>
-                </tr>
-                </thead>
-                <tbody>
-                {filteredPollutions.map((pollution) => (
-                    <tr key={pollution.id}>
-                        <td>{pollution.id}</td>
-                        <td>{pollution.objectName}</td>
-                        <td>{pollution.pollutantName}</td>
-                        <td>{pollution.valuePollution ? pollution.valuePollution.toPrecision(2) : 'N/A'}</td>
-                        <td>{pollution.pollutantMfr}</td>
-                        <td>{pollution.pollutantElv}</td>
-                        <td>{pollution.pollutantTlv}</td>
-                        <td>{pollution.pollutionConcentration}</td>
-
-                        <td onMouseOver={() => hqMouseOver(pollution.hq)}
-                            data-tooltip-id="my-tooltip"
-                            data-tooltip-content={hqMessage}
-                            data-tooltip-place="top">
-                            {pollution.hq ? pollution.hq.toPrecision(2) : 0}
-                        </td>
-
-                        <td onMouseOver={() => crMouseOver(pollution.cr)}
-                            data-tooltip-id="my-tooltip"
-                            data-tooltip-content={crMessage}
-                            data-tooltip-place="top">
-                            {pollution.cr ? pollution.cr.toPrecision(2) : 0}
-                        </td>
-                        <td>{pollution.fee ? pollution.fee.toPrecision(2) : 'N/A'}</td>
-                        <td>{pollution.year}</td>
-                        <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
-                        <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>
+            {isFilterFormVisible && <FilterForm filters={filters} onFilterChange={handleFilterChange}/>}
+                <Table>
+                    <thead className="">
+                    <tr>
+                        <th rowSpan="2">ID</th>
+                        <th rowSpan="2">Назва підприємства</th>
+                        <th rowSpan="2">Назва забруднюючої речовини</th>
+                        <th rowSpan="2">Усього викидів підприємства г/год.</th>
+                        <th colSpan="3">Нормативи забруднюючих речовин</th>
+                        <th rowSpan="2">Концентрація викидів мг/м3</th>
+                        <th rowSpan="2">Неканцерогенний коефіцієнт небезпеки</th>
+                        <th rowSpan="2">Індивідуальний канцерогенний ризик</th>
+                        <th rowSpan="2">Розмір відшкодування збитків</th>
+                        <th rowSpan="2">Період</th>
+                        <th rowSpan="2">Оновлення даних</th>
+                        <th rowSpan="2">Видалення</th>
                     </tr>
-                ))}
-                </tbody>
-            </Table>
+                    <tr>
+                        <th>Величина масової витрати г/год.</th>
+                        <th>Гранично допустимі викиди мг/м3</th>
+                        <th>Гранично допустимі концентрація мг/м3</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {filteredPollutions.map((pollution) => (
+                        <tr key={pollution.id}>
+                            <td>{pollution.id}</td>
+                            <td>{pollution.objectName}</td>
+                            <td>{pollution.pollutantName}</td>
+                            <td>{pollution.valuePollution ? pollution.valuePollution.toPrecision(2) : 'N/A'}</td>
+                            <td>{pollution.pollutantMfr}</td>
+                            <td>{pollution.pollutantElv}</td>
+                            <td>{pollution.pollutantTlv}</td>
+                            <td>{pollution.pollutionConcentration}</td>
+
+                            <td onMouseOver={() => hqMouseOver(pollution.hq)}
+                                data-tooltip-id="my-tooltip"
+                                data-tooltip-content={hqMessage}
+                                data-tooltip-place="top">
+                                {pollution.hq ? pollution.hq.toPrecision(2) : 0}
+                            </td>
+
+                            <td onMouseOver={() => crMouseOver(pollution.cr)}
+                                data-tooltip-id="my-tooltip"
+                                data-tooltip-content={crMessage}
+                                data-tooltip-place="top">
+                                {pollution.cr ? pollution.cr.toPrecision(2) : 0}
+                            </td>
+                            <td>{pollution.fee ? pollution.fee.toPrecision(2) : 'N/A'}</td>
+                            <td>{pollution.year}</td>
+                            <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
+                            <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
         </div>
     );
 }
