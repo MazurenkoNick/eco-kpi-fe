@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 function CreatePollutionForm({ onPollutionCreated }) {
     const [formData, setFormData] = useState({
         objectName: "",
-        pollutantName: "",
+        pollutantId: "",
         year: "",
         valuePollution: "",
         pollutionConcentration: ""
     });
 
+    const [pollutants, setPollutants] = useState([]);
     const [error, setError] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -25,13 +26,25 @@ function CreatePollutionForm({ onPollutionCreated }) {
         }));
     };
 
+    useEffect(() => {
+        async function fetchPollutants() {
+            try {
+                const response = await axios.get("http://localhost:8080/api/v1/pollutants");
+                setPollutants(response.data);
+            } catch (error) {
+                console.error("Error fetching pollutants:", error);
+            }
+        }
+        fetchPollutants();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Basic not-null checks
         if (
             !formData.objectName ||
-            !formData.pollutantName ||
+            !formData.pollutantId ||
             !formData.year ||
             !formData.valuePollution ||
             !formData.pollutionConcentration
@@ -56,7 +69,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                 // Clear form data on successful submission
                 setFormData({
                     objectName: "",
-                    pollutantName: "",
+                    pollutantId: "",
                     year: "",
                     valuePollution: "",
                     pollutionConcentration: ""
@@ -93,14 +106,20 @@ function CreatePollutionForm({ onPollutionCreated }) {
                             />
                         </div>
                         <div>
-                            <label>Pollutant Name:</label>
-                            <br/>
-                            <input
-                                type="text"
-                                name="pollutantName"
-                                value={formData.pollutantName}
+                            <label>Pollutant ID:</label>
+                            <br />
+                            <select style={{"max-width":"200px"}}
+                                name="pollutantId"
+                                value={formData.pollutantId}
                                 onChange={handleChange}
-                            />
+                            >
+                                <option value="">Select Pollutant ID</option>
+                                {pollutants.map((pollutant) => (
+                                    <option key={pollutant.id} value={pollutant.id}>
+                                        {pollutant.name} {pollutant.pollutantType.pollutantTypeName}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label>Year:</label>
@@ -116,6 +135,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                             <label>Value Pollution:</label>
                             <br/>
                             <input
+                                step=".0001"
                                 type="number"
                                 name="valuePollution"
                                 value={formData.valuePollution}
@@ -126,6 +146,7 @@ function CreatePollutionForm({ onPollutionCreated }) {
                             <label>Pollution Concentration:</label>
                             <br/>
                             <input
+                                step=".0001"
                                 type="number"
                                 name="pollutionConcentration"
                                 value={formData.pollutionConcentration}

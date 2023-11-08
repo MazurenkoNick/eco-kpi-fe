@@ -162,7 +162,7 @@ function CreatePollutantForm({ onPollutantCreated }) {
                         <div>
                             <label>Pollutant Type:</label>
                             <br />
-                            <select
+                            <select style={{"max-width":"200px"}}
                                 name="pollutantTypeId"
                                 value={formData.pollutantTypeId}
                                 onChange={handlePollutantTypeChange}

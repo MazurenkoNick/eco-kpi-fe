@@ -4,14 +4,27 @@ import axios from "axios";
 function PollutionUpdateForm({ pollution, onUpdate }) {
     const [formData, setFormData] = useState({
         objectName: pollution.objectName,
-        pollutantName: pollution.pollutantName,
+        pollutantId: pollution.pollutantId,
         year: pollution.year,
         valuePollution: pollution.valuePollution.toFixed(2),
         pollutionConcentration: pollution.pollutionConcentration.toFixed(2)
     });
 
+    const [pollutants, setPollutants] = useState([]);
     const [error, setError] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    useEffect(() => {
+        async function fetchPollutants() {
+            try {
+                const response = await axios.get("http://localhost:8080/api/v1/pollutants");
+                setPollutants(response.data);
+            } catch (error) {
+                console.error("Error fetching pollutants:", error);
+            }
+        }
+        fetchPollutants();
+    }, []);
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
@@ -31,7 +44,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
         // Basic not-null checks
         if (
             !formData.objectName ||
-            !formData.pollutantName ||
+            !formData.pollutantId ||
             !formData.year ||
             !formData.valuePollution ||
             !formData.pollutionConcentration
@@ -41,7 +54,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
         }
 
         if (
-            formData.year < 0 || formData.valuePollution < 0 || formData.pollutionConcentration
+            formData.year < 0 || formData.valuePollution < 0 || formData.pollutionConcentration < 0
         ) {
             setError("number can't be less than 0.")
             return;
@@ -75,6 +88,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
                             <label>Object Name:</label>
                             <br />
                             <input
+                                disabled="disabled"
                                 type="text"
                                 name="objectName"
                                 value={formData.objectName}
@@ -82,14 +96,20 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
                             />
                         </div>
                         <div>
-                            <label>Pollutant Name:</label>
+                            <label>Pollutant ID:</label>
                             <br />
-                            <input
-                                type="text"
-                                name="pollutantName"
-                                value={formData.pollutantName}
-                                onChange={handleChange}
-                            />
+                            <select style={{"max-width":"200px"}}
+                                    name="pollutantId"
+                                    value={formData.pollutantId}
+                                    onChange={handleChange}
+                            >
+                                <option value="">Select Pollutant ID</option>
+                                {pollutants.map((pollutant) => (
+                                    <option key={pollutant.id} value={pollutant.id}>
+                                        {pollutant.name} {pollutant.pollutantType.pollutantTypeName}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label>Year:</label>
@@ -105,6 +125,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
                             <label>Value Pollution:</label>
                             <br />
                             <input
+                                step=".0001"
                                 type="number"
                                 name="valuePollution"
                                 value={formData.valuePollution}
@@ -115,6 +136,7 @@ function PollutionUpdateForm({ pollution, onUpdate }) {
                             <label>Pollution Concentration:</label>
                             <br/>
                             <input
+                                step=".0001"
                                 type="number"
                                 name="pollutionConcentration"
                                 value={formData.pollutionConcentration}
