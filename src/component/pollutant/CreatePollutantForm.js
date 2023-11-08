@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 function CreatePollutantForm({ onPollutantCreated }) {
@@ -8,11 +8,26 @@ function CreatePollutantForm({ onPollutantCreated }) {
         tlv:"",
         mfr: "",
         sf: "",
-        rfc: ""
+        rfc: "",
+        pollutantTypeId: "",
+        taxRate: ""
     });
 
+    const [pollutantTypes, setPollutantTypes] = useState([]);
     const [error, setError] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    useEffect(() => {
+        async function fetchPollutantTypes() {
+            try {
+                const response = await axios.get("http://localhost:8080/api/v1/pollutantypes");
+                setPollutantTypes(response.data);
+            } catch (error) {
+                console.error("Error fetching pollutant types:", error);
+            }
+        }
+        fetchPollutantTypes();
+    }, []);
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
@@ -26,16 +41,25 @@ function CreatePollutantForm({ onPollutantCreated }) {
         }));
     };
 
+    const handlePollutantTypeChange = (e) => {
+        setFormData({
+            ...formData,
+            pollutantTypeId: e.target.value,
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Basic not-null checks
-        if (!formData.name || !formData.elv || !formData.mfr || !formData.tlv || !formData.sf || !formData.rfc) {
+        if (!formData.name || !formData.elv || !formData.mfr || !formData.tlv || !formData.sf || !formData.rfc
+            || !formData.pollutantTypeId || !formData.taxRate) {
             setError("All fields are required.");
             return;
         }
 
-        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0 || formData.sf < 0 || formData.rfc < 0) {
+        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0 || formData.sf < 0 || formData.rfc < 0
+            || formData.pollutantTypeId < 0 || formData.taxRate < 0) {
             setError("Fields cannot be less than 0.");
             return;
         }
@@ -53,7 +77,9 @@ function CreatePollutantForm({ onPollutantCreated }) {
                     tlv:"",
                     mfr: "",
                     sf: "",
-                    rfc: ""
+                    rfc: "",
+                    pollutantTypeId: "",
+                    taxRate: ""
                 });
                 setError(""); // Clear any previous errors
                 onPollutantCreated(); // You can use this callback to refresh your table or perform other actions
@@ -130,6 +156,32 @@ function CreatePollutantForm({ onPollutantCreated }) {
                                 type="number"
                                 name="sf"
                                 value={formData.sf}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Pollutant Type:</label>
+                            <br />
+                            <select
+                                name="pollutantTypeId"
+                                value={formData.pollutantTypeId}
+                                onChange={handlePollutantTypeChange}
+                            >
+                                <option value="">Select Pollutant Type</option>
+                                {pollutantTypes.map((type) => (
+                                    <option key={type.id} value={type.id}>
+                                        {type.pollutantTypeName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label>Tax rate:</label>
+                            <br />
+                            <input
+                                type="number"
+                                name="taxRate"
+                                value={formData.taxRate}
                                 onChange={handleChange}
                             />
                         </div>

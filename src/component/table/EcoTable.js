@@ -29,7 +29,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
     const filteredPollutions = pollutions.filter((pollution) => {
         const idMatches = pollution.id.toString().includes(filters.idFilter);
         const companyNameMatches = pollution.objectName.includes(filters.companyNameFilter);
-        const pollutantNameMatches = pollution.pollutantName.includes(filters.pollutantNameFilter);
+        const pollutantNameMatches = pollution.pollutant.name.includes(filters.pollutantNameFilter);
         const periodMatches = pollution.year.toString().includes(filters.periodFilter);
         return idMatches && companyNameMatches && pollutantNameMatches && periodMatches;
     });
@@ -85,13 +85,15 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <th rowSpan="2">ID</th>
                     <th rowSpan="2">Назва підприємства</th>
                     <th rowSpan="2">Назва забруднюючої речовини</th>
+                    <th rowSpan="2">Тип забруднюючої речовини</th>
                     <th rowSpan="2">Усього викидів підприємства г/год.</th>
                     <th colSpan="3">Нормативи забруднюючих речовин</th>
                     <th rowSpan="2">Концентрація викидів мг/м3</th>
                     <th rowSpan="2">Неканцерогенний коефіцієнт небезпеки</th>
                     <th rowSpan="2">Індивідуальний канцерогенний ризик</th>
                     <th rowSpan="2">Розмір відшкодування збитків</th>
-                    <th rowSpan="2">Період</th>
+                    <th rowSpan="2">Рік</th>
+                    <th rowSpan="2">Податок</th>
                     <th rowSpan="2">Оновлення даних</th>
                     <th rowSpan="2">Видалення</th>
                 </tr>
@@ -106,7 +108,8 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                     <tr key={pollution.id}>
                         <td>{pollution.id}</td>
                         <td>{pollution.objectName}</td>
-                        <td>{pollution.pollutantName}</td>
+                        <td>{pollution.pollutant.name}</td>
+                        <td>{pollution.pollutant.pollutantType.pollutantTypeName}</td>
                         <td>{pollution.valuePollution ? pollution.valuePollution.toPrecision(2) : 'N/A'}</td>
                         <td>{pollution.pollutantMfr}</td>
                         <td>{pollution.pollutantElv}</td>
@@ -128,6 +131,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
                         </td>
                         <td>{pollution.fee ? pollution.fee.toPrecision(2) : 'N/A'}</td>
                         <td>{pollution.year}</td>
+                        <td>{pollution.tax ? pollution.tax.toPrecision(2) : 'N/A'}</td>
                         <td><PollutionUpdateForm pollution={pollution} onUpdate={onPollutionUpdate}/></td>
                         <td><PollutionDeleteButton pollution={pollution} onDelete={onPollutionDelete}/></td>
                     </tr>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 function PollutantUpdateForm({ pollutant, onUpdate }) {
@@ -8,11 +8,26 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
         mfr: pollutant.mfr,
         tlv: pollutant.tlv,
         sf: pollutant.sf,
-        rfc: pollutant.rfc
+        rfc: pollutant.rfc,
+        pollutantTypeId: pollutant.pollutantTypeId,
+        taxRate: pollutant.taxRate
     });
 
+    const [pollutantTypes, setPollutantTypes] = useState([]);
     const [error, setError] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    useEffect(() => {
+        async function fetchPollutantTypes() {
+            try {
+                const response = await axios.get("http://localhost:8080/api/v1/pollutantypes");
+                setPollutantTypes(response.data);
+            } catch (error) {
+                console.error("Error fetching pollutant types:", error);
+            }
+        }
+        fetchPollutantTypes();
+    }, []);
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
@@ -26,17 +41,26 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
         }));
     };
 
+    const handlePollutantTypeChange = (e) => {
+        setFormData({
+            ...formData,
+            pollutantTypeId: e.target.value,
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Basic not-null checks
         if (!formData.name || formData.elv === null || formData.mfr === null
-            || formData.tlv == null || formData.sf == null || formData.rfc == null) {
+            || formData.tlv == null || formData.sf == null || formData.rfc == null
+            || formData.pollutantTypeId == null || formData.taxRate == null) {
             setError("All fields are required.");
             return;
         }
 
-        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0 || formData.sf < 0 || formData.sf < 0) {
+        if (formData.elv < 0 || formData.mfr < 0 || formData.tlv < 0 || formData.sf < 0 || formData.sf < 0
+            || formData.pollutantTypeId < 0 || formData.taxRate < 0) {
             setError("Fields cannot be less than 0.");
             return;
         }
@@ -122,6 +146,32 @@ function PollutantUpdateForm({ pollutant, onUpdate }) {
                                 type="number"
                                 name="sf"
                                 value={formData.sf}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Pollutant Type:</label>
+                            <br />
+                            <select
+                                name="pollutantTypeId"
+                                value={formData.pollutantTypeId}
+                                onChange={handlePollutantTypeChange}
+                            >
+                                <option value="">Select Pollutant Type</option>
+                                {pollutantTypes.map((type) => (
+                                    <option key={type.id} value={type.id}>
+                                        {type.pollutantTypeName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label>Tax rate:</label>
+                            <br />
+                            <input
+                                type="number"
+                                name="taxRate"
+                                value={formData.taxRate}
                                 onChange={handleChange}
                             />
                         </div>

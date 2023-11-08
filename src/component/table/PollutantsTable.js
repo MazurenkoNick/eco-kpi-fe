@@ -15,7 +15,9 @@ function PollutantsTable({ pollutants, onPollutantUpdate, onPollutantDelete }) {
                 <th rowSpan="2">Гранично допустима концинтрація мг/м3</th>
                 <th rowSpan="2">Гранично допустимі викиди мг/м3</th>
                 <th rowSpan="2">Фактор канцерогенного потенціалу (мг/(кг * доба)</th>
-                <th rowSpan="2">референтна концентрація, мг/м3</th>
+                <th rowSpan="2">Референтна концентрація, мг/м3</th>
+                <th rowSpan="2">Тип забруднюючої речовини</th>
+                <th rowSpan="2">Податок</th>
                 <th rowSpan="2">Оновлення даних</th>
                 <th rowSpan="2">Видалення</th>
             </tr>
@@ -30,6 +32,8 @@ function PollutantsTable({ pollutants, onPollutantUpdate, onPollutantDelete }) {
                     <td>{pollutant.elv}</td>
                     <td>{pollutant.sf}</td>
                     <td>{pollutant.rfc}</td>
+                    <td>{pollutant.pollutantType.pollutantTypeName}</td>
+                    <td>{pollutant.taxRate}</td>
                     <td><PollutantUpdateForm pollutant={pollutant} onUpdate={onPollutantUpdate}/></td>
                     <td><PollutantDeleteButton pollutant={pollutant} onDelete={onPollutantDelete}/></td>
                 </tr>
