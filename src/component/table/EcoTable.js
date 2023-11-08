@@ -70,7 +70,7 @@ function EcoTable({ pollutions, onPollutionUpdate, onPollutionDelete }) {
             <Tooltip
                 id="my-tooltip"
                 style={{ width: "400px" }
-            }/>
+                }/>
             <button
                 className="btn btn-primary mb-3"
                 onClick={toggleFilterForm}

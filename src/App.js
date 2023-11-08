@@ -19,6 +19,9 @@ function App() {
                         <Route path="/objects" element={<ObjectsPage />} />
                     </Routes>
                 </div>
+                <footer className="bg-dark text-light text-center p-3">
+                    &copy; Copyright 2023 Nikita Malov and Nikita Mazurenko
+                </footer>
             </div>
         </Router>
     );
