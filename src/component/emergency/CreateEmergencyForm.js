@@ -149,7 +149,12 @@ function CreateEmergencyForm({ onCreate }) {
                             onChange={handleChange}
                     >
                         <option value="">Select Pollutant ID</option>
-                        {pollutants.map((pollutant) => (
+                        {pollutants
+                            .filter((pollutant) => (
+                                pollutant.pollutantType.id === 1 ||
+                                pollutant.pollutantType.id === 2
+                            ))
+                            .map((pollutant) => (
                             <option key={pollutant.id} value={pollutant.id}>
                                 {pollutant.name} {pollutant.pollutantType.pollutantTypeName}
                             </option>
