@@ -6,6 +6,7 @@ import HomePage from "./page/HomePage";
 import PollutantsPage from "./page/PollutantsPage";
 import ObjectsPage from "./page/ObjectsPage";
 import Navbar from "./component/Navbar";
+import EmergencyPage from "./page/EmergencyPage";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/pollutants" element={<PollutantsPage />} />
                         <Route path="/objects" element={<ObjectsPage />} />
+                        <Route path="/emergencies" element={<EmergencyPage />} />
                     </Routes>
                 </div>
                 <footer className="bg-dark text-light text-center p-3">

@@ -49,6 +49,15 @@ function Navbar() {
                                 Objects
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link"
+                                to="/emergencies"
+                                activeClassName="active"
+                            >
+                                Emergencies
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
